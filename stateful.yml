@@ -1,0 +1,35 @@
+apiversion: apps/v1
+kind; StatefulSet
+metadata:
+  name: dbstate
+spec:
+  replica: 3
+  selector:
+      matchlabels:
+         app :mydb 
+  serviceName: "dbservice"
+  template:
+     metadata:
+       labels:
+         app: db
+     spec:
+        containers:
+           - name: MySQLcont
+             image: MySQL
+             env:
+             - name: MYSQL_ROOT_PASSWORD
+               valueFrom:
+                 configMapKeyRef:          #for seret secretKeyref:
+                    name: mysql-conf
+                    key: mysql-pass 
+             ports:
+               - containerPort: 3306
+ volumeClaimTemplates:
+          - metadata:
+                 name: dbb
+            spec:
+              accessModes: ["ReadWriteOnce"]
+              Resources:
+                 request:
+                    storage: 1Gi
+
