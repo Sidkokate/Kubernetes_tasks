@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+ name: apachepod
+ labels:
+  app: myappapache
+spec:
+    containers:
+       - name: appacont
+         image: httpd
+         ports:
+           - containerPort: 90
