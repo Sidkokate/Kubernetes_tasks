@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: pod
+metadata:
+  name: mysqlpod
+spec:
+  containers:
+     - name: mysqlcon
+       image: mysql:8.0
+       env:
+         - name: MYSQL_ROOT_PASSWORD
+           valueFrom:
+              configMapKeyRef:          #for seret secretKeyref:
+                    name: mysql-conf
+                    key: mysql-pass
