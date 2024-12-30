@@ -1,0 +1,17 @@
+apiVresion: batch/v1
+kind: cronJob
+metadata:
+  name: newjobpod
+spec:
+  schedule: "*/5* * * *"
+  template:
+    metadata:
+       labels:
+          app: hello
+    spec:
+      containers: 
+         - name: newhello
+           image: busybox
+           command:["echo","hello,k8s"]
+      restartPolicy: Never
+
